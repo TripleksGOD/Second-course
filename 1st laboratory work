@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 using namespace std;
@@ -11,6 +10,12 @@ private:
 public:
     Line(double a, double b, double c) : A(a), B(b), C(c) {} // Конструктор 
 
+    void Input()
+    {
+        cout << "Enter coefficients A, B, C: " << endl;
+        cin >> A >> B >> C;
+    }
+    
     void Print() 
     {
         cout << "Coefficients of the canonical equation of a line: A = " << A << ", B = " << B << ", C = " << C << endl;// Виведення коефіцієнтів (Метод)
@@ -46,8 +51,10 @@ public:
 
 int main() 
 {
-    Line line(1, -3, 1); // Пряма з коефіцієнтами
-    
+    double A = 0, B = 0, C = 0;
+
+    Line line(A,B,C); // Пряма з коефіцієнтами
+    line.Input();    
     line.Print();// Виведення коефієнтів
 
     double a1 = 1, b1 = 2, c1 = -3; // Коефіцієнти іншої прямої
