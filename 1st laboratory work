@@ -1,1 +1,88 @@
 
+#include <iostream>
+
+using namespace std;
+
+class Line // Створення класу
+{
+private:
+    double A, B, C; // Коефіцієнти (поля)
+
+public:
+    Line(double a, double b, double c) : A(a), B(b), C(c) {} // Конструктор 
+
+    void Print() 
+    {
+        cout << "Coefficients of the canonical equation of a line: A = " << A << ", B = " << B << ", C = " << C << endl;// Виведення коефіцієнтів (Метод)
+    }
+
+    bool Find(double a1, double b1, double c1, double& x, double& y) // Знаходження точки перетину з іншою прямою (Метод)
+    {
+        double det = A * b1 - a1 * B; // Визначення чи перетинаються прямі (якщо дорінює нулю, то прямі паралельні)
+
+        if (det == 0) 
+        {
+            return false;
+        }
+        else // Обчислення точок перетину
+        {
+            x = ((B * c1 - C * b1) / det);
+            y = ((C * a1 - A * c1) / det);
+            return true;
+        }
+    }
+
+    bool Parallel(double a1, double b1, double c1) // Встановлення паралельності з іншою прямою (Метод)
+    {
+        return A * b1 == a1 * B; // Якщо прямі паралельні
+    }
+
+    bool IndependentPoint(double x0, double y0) // Встановлення чи є задана точка незалежою від прямої
+    {
+        return A * x0 + B * y0 + C != 0; // Якщо точка незалежна від прямої
+    }
+
+};
+
+int main() 
+{
+    Line line(1, -3, 1); // Пряма з коефіцієнтами
+    
+    line.Print();// Виведення коефієнтів
+
+    double a1 = 1, b1 = 2, c1 = -3; // Коефіцієнти іншої прямої
+    double X, Y; // Координати точок
+    double x0 = 1, y0 = 1;
+    bool Crossing = line.Find(a1, b1, c1, X, Y);
+
+    if (Crossing) // Якщо прямі перетинаються
+    {
+        cout << "A point of intersection with another line: (" << X << ", " << Y << ")" << endl;
+    }
+    else // Якщо прямі паралельні
+    {
+        cout << "Lines are parallel." << endl;
+    }
+
+    if (line.Parallel(a1, b1, c1)) // Перевірка, якщо прямі паралельні
+    {
+        cout << "Lines are parallel." << endl;
+    }
+    else // Якщо прямі не паральні
+    {
+        cout << "Lines are not parallel." << endl;
+    }
+
+    if (line.IndependentPoint(x0, y0)) // Перевірка, чи точка незалежна від прямї
+    {
+        cout << "Point (" << x0 << ", " << y0 << ") is independent of the line." << endl;
+    }
+    else // Якщо точка лежить на прямій
+    {
+        cout << "Point (" << x0 << ", " << y0 << ") lies on a line." << endl;
+    }
+
+    system("pause");
+    return 0;
+   
+}
