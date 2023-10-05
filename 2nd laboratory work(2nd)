@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class QuadraticEquation 
+{
+private:
+    double A, B, C; // Коефіцієнти квадратного рівняння
+
+public:
+    QuadraticEquation(double A, double B, double C) : A(A), B(B), C(C) {}// Конструктор
+
+    void Solve() 
+    {
+        double Discriminant = B * B - 4 * A * C;// Формула дискримінанта
+
+        if (Discriminant < 0) // Перевірка існування розв'язків
+        {
+            cout << "Error" << endl;
+        }
+        else
+        {
+            double x1 = (-B + sqrt(Discriminant)) / (2 * A);
+            double x2 = (-B - sqrt(Discriminant)) / (2 * A);
+            
+            cout << "|| Solutions of the equation: " << endl;
+            cout << "|| x1 = " << x1 << endl;
+            cout << "|| x2 = " << x2 << endl;
+        }
+    }
+    
+    // Функція для введення коефіцієнтів
+    void Input()
+    {
+        cout << "|| Enter coefficients of a quadratin equation: ";
+        cin >> A >> B >> C;
+    }
+
+    // Функція для виведення коефіцієнтів
+    void Print() 
+    {
+        cout << "|| " << A << "x^2 + " << B << "x + " << C << " = 0" << endl;
+    }
+
+};
+
+int main() 
+{
+    double A = 0, B = 0, C = 0;// Створення змінних
+   
+    QuadraticEquation Equation(A, B, C);
+
+    Equation.Input();// Функція введення
+    Equation.Print();// Функція виведення
+    Equation.Solve();// Функція рішення квадратного рівняння
+
+    return 0;
+    system("pause");
+}
