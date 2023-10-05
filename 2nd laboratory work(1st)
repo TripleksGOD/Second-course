@@ -1,0 +1,128 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class TGoods
+{
+private:
+    string NameOfGoods;
+    string Units;
+    int Quantity;
+    double PriceForUnit;
+
+public:
+    TGoods(string NameOfGoods1, string Units1, int Quantity1, double PriceForUnit1)
+    {
+        NameOfGoods = NameOfGoods1;
+        Units = Units1;
+        Quantity = Quantity1;
+        PriceForUnit = PriceForUnit1;
+    }
+
+    double Summary()
+    {
+        return Quantity * PriceForUnit;
+    }
+
+    void QuantityIncrease(int QuantityIncrease)
+    {
+        if (QuantityIncrease > 0)
+        {
+            Quantity += QuantityIncrease;
+        }
+    }
+
+    void QuantityDecrease(int QuantityDecrease)
+    {
+        if (QuantityDecrease > 0)
+        {
+            Quantity -= QuantityDecrease;
+        }
+    }
+
+    void Add()
+    {
+        cout << "|| Enter information about product" << endl;
+
+        cout << "|| Enter product name: ";
+        cin >> NameOfGoods;
+
+        cout << "|| Enter units of measure: ";
+        cin >> Units;
+
+        cout << "|| Enter quantity of goods: ";
+        cin >> Quantity;
+
+        cout << "|| Enter price for unit: ";
+        cin >> PriceForUnit;
+    }
+
+    void Print()
+    {
+        cout << "|| Name of product: " << NameOfGoods << endl;
+        cout << "|| Quantity: " << Quantity << endl;
+        cout << "|| Units of measure: " << Units << endl;
+        cout << "|| Price for unit: " << PriceForUnit << endl;
+    }
+
+    string GetNameOfGoods()
+    {
+        return NameOfGoods;
+    }
+
+    string GetUnits()
+    {
+        return Units;
+    }
+
+    int GetQuantity()
+    {
+        return Quantity;
+    }
+
+    double GetPriceForUnit()
+    {
+        return PriceForUnit;
+    }
+
+    void SetQuantity(int Quantity1)
+    {
+        if (Quantity1 >= 0)
+        {
+            Quantity = Quantity1;
+        }
+    }
+
+    void SetPriceForUnit(double PriceForUnit1)
+    {
+        if (PriceForUnit1 >= 0)
+        {
+            PriceForUnit = PriceForUnit1;
+        }
+    }
+};
+
+int main()
+{
+    string NameOfGoods;
+    string Units;
+    int Quantity = 0;
+    double PriceForUnit = 0;
+
+    TGoods Goods(NameOfGoods, Units, Quantity, PriceForUnit);
+
+    Goods.Add();
+    Goods.Print();
+
+    cout << "|| Total cost in dollars: " << Goods.Summary() << endl;
+
+    Goods.QuantityIncrease(10);
+    cout << "|| Quantity after adding: " << Goods.GetQuantity() << endl;
+
+    Goods.QuantityDecrease(10);
+    cout << "|| Quantity after subtracting: " << Goods.GetQuantity() << endl;
+
+    system("pause");
+    return 0;
+}
