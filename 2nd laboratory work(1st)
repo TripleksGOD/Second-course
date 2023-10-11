@@ -12,7 +12,7 @@ private:
     double PriceForUnit;
 
 public:
-    TGoods(string NameOfGoods1, string Units1, int Quantity1, double PriceForUnit1)
+    TGoods(string NameOfGoods1, string Units1, int Quantity1, double PriceForUnit1)// Конструктор
     {
         NameOfGoods = NameOfGoods1;
         Units = Units1;
@@ -20,12 +20,12 @@ public:
         PriceForUnit = PriceForUnit1;
     }
 
-    double Summary()
+    double Summary()// Функція визначення сумарної вартості
     {
         return Quantity * PriceForUnit;
     }
 
-    void QuantityIncrease(int QuantityIncrease)
+    void QuantityIncrease(int QuantityIncrease)// Функція додавання
     {
         if (QuantityIncrease > 0)
         {
@@ -33,7 +33,7 @@ public:
         }
     }
 
-    void QuantityDecrease(int QuantityDecrease)
+    void QuantityDecrease(int QuantityDecrease)// Функція видалення
     {
         if (QuantityDecrease > 0)
         {
@@ -41,7 +41,7 @@ public:
         }
     }
 
-    void Add()
+    void Add()// Функція внесення даних
     {
         cout << "|| Enter information about product" << endl;
 
@@ -58,7 +58,7 @@ public:
         cin >> PriceForUnit;
     }
 
-    void Print()
+    void Print()// Функція вивелення даних
     {
         cout << "|| Name of product: " << NameOfGoods << endl;
         cout << "|| Quantity: " << Quantity << endl;
@@ -66,27 +66,27 @@ public:
         cout << "|| Price for unit: " << PriceForUnit << endl;
     }
 
-    string GetNameOfGoods()
+    string GetNameOfGoods()// Гет функція
     {
         return NameOfGoods;
     }
 
-    string GetUnits()
+    string GetUnits()// Гет функція
     {
         return Units;
     }
 
-    int GetQuantity()
+    int GetQuantity()// Гет функція
     {
         return Quantity;
     }
 
-    double GetPriceForUnit()
+    double GetPriceForUnit()// Гет функція
     {
         return PriceForUnit;
     }
 
-    void SetQuantity(int Quantity1)
+    void SetQuantity(int Quantity1)// Сет функція
     {
         if (Quantity1 >= 0)
         {
@@ -94,7 +94,7 @@ public:
         }
     }
 
-    void SetPriceForUnit(double PriceForUnit1)
+    void SetPriceForUnit(double PriceForUnit1)// Сет функція
     {
         if (PriceForUnit1 >= 0)
         {
@@ -105,23 +105,23 @@ public:
 
 int main()
 {
-    string NameOfGoods;
+    string NameOfGoods;// змінні
     string Units;
     int Quantity = 0;
     double PriceForUnit = 0;
 
-    TGoods Goods(NameOfGoods, Units, Quantity, PriceForUnit);
+    TGoods Goods(NameOfGoods, Units, Quantity, PriceForUnit);// Об'єкс
 
-    Goods.Add();
-    Goods.Print();
+    Goods.Add();// Виклик функції занесення даних
+    Goods.Print();// Виклик функція виведення даних
 
-    cout << "|| Total cost in dollars: " << Goods.Summary() << endl;
+    cout << "|| Total cost in dollars: " << Goods.Summary() << endl;// Виведення сумарної вартості
 
-    Goods.QuantityIncrease(10);
-    cout << "|| Quantity after adding: " << Goods.GetQuantity() << endl;
+    Goods.QuantityIncrease(10);// Зменшення обсягу
+    cout << "|| Quantity after adding: " << Goods.GetQuantity() << endl;// Виведення кількості товарі після збільшення
 
-    Goods.QuantityDecrease(10);
-    cout << "|| Quantity after subtracting: " << Goods.GetQuantity() << endl;
+    Goods.QuantityDecrease(10);// Збільшення обсягу
+    cout << "|| Quantity after subtracting: " << Goods.GetQuantity() << endl;// Виведення кількості товарів після зменшення
 
     system("pause");
     return 0;
