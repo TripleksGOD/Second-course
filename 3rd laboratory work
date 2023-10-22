@@ -1,0 +1,146 @@
+#include <iostream>
+
+using namespace std;
+
+class TMatrix// Клас
+{
+private:
+    int** Matrix;// Поля
+    int rows;
+    int columns;
+
+public:
+    TMatrix()// Конструктор без параметрів
+    {
+        rows = 0;
+        columns = 0;
+        this->Matrix = nullptr;
+    }
+
+    TMatrix(int nRows, int nColumns)// Конструктор з параметрами
+    {
+        rows = nRows;
+        columns = nColumns;
+        this->Matrix = new int* [rows];
+        for (int i = 0; i < rows; i++)
+        {
+            this->Matrix[i] = new int[columns];
+        }
+    }
+
+    TMatrix(const TMatrix& a)// Конструктор копіювання
+    {
+        rows = a.rows;
+        columns = a.columns;
+        this->Matrix = new int* [rows];
+        for (int i = 0; i < rows; i++)
+        {
+            this->Matrix[i] = new int[columns];
+            for (int j = 0; j < columns; j++)
+            {
+                this->Matrix[i][j] = a.Matrix[i][j];
+            }
+        }
+    }
+
+    void Input()// Вункція введення елеметнів матриці
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                cout << "Enter element [" << i + 1 << "][" << j + 1 << "]: ";
+                cin >> Matrix[i][j];
+            }
+        }
+    }
+
+    void Output()// Функція виведення матриці
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                cout << Matrix[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
+
+    void Free()// Функція для звільнення пам'яті
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            delete[] Matrix[i];
+        }
+        delete[] Matrix;
+    }
+
+    int MaxElement()// Функція знаходження максимального елементу матриці
+    {
+        int MaxElement = Matrix[0][0];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (Matrix[i][j] > MaxElement)
+                {
+                    MaxElement = Matrix[i][j];
+                }
+            }
+        }
+        return MaxElement;
+    }
+
+    int MinElement()// Функція знаходження мінімального елементу матриці
+    {
+        int minElement = Matrix[0][0];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (Matrix[i][j] < minElement)
+                {
+                    minElement = Matrix[i][j];
+                }
+            }
+        }
+        return minElement;
+    }
+
+    int SumOfElements()// Функція знаходження суми елементів матриці
+    {
+        int sum = 0;
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                sum += Matrix[i][j];
+            }
+        }
+        return sum;
+    }
+};
+
+int main()
+{
+    int nRows, nColumns;
+    cout << "Enter matrix size, rows and columns: " << endl;
+    cin >> nRows >> nColumns;
+
+    TMatrix Matrix1(nRows, nColumns);// Створення об'єкту
+
+    cout << "Enter elements of the matrix:" << endl;
+    Matrix1.Input();// Введення елементів матриці
+
+    cout << "Matrix:" << endl;
+    Matrix1.Output();// Виведення матриці
+
+    cout << "Highest element: " << Matrix1.MaxElement() << endl;// Знаходження найбільшого елементу матриці
+    cout << "Lowest element: " << Matrix1.MinElement() << endl;// Знаходження найменшого елементу матриці
+    cout << "Sum of the elements: " << Matrix1.SumOfElements() << endl;// Сума елементів матриці
+
+    Matrix1.Free();// вивільнення пам'яті
+
+    return 0;
+}
