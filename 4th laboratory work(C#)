@@ -1,0 +1,155 @@
+using System;
+
+class Info
+{
+    public double X { get; set; }// Поля
+    public double Y { get; set; }
+}
+
+class TCircle
+{
+    private double radius;//поля
+    private Info center;
+
+    public double Radius// Геттер і сеттер
+    {
+        get { return radius; }
+        set { radius = value; }
+    }
+
+    public TCircle()// Конструктор без параметрів
+    {
+        radius = 1.0;
+        center = new Info { X = 0.0, Y = 0.0 };
+    }
+
+    public TCircle(double radius, Info center)// Конструктор з параметрами
+    {
+        this.radius = radius;
+        this.center = center;
+    }
+
+    public TCircle(TCircle other)// Конструктор копіювання
+    {
+        radius = other.radius;
+        center = new Info { X = other.center.X, Y = other.center.Y };
+    }
+
+    public void Input()// Функція введення даних
+    {
+        Console.Write("Enter radius: ");
+        Radius = double.Parse(Console.ReadLine());
+        Console.Write("Enter coordinate x: ");
+        center.X = double.Parse(Console.ReadLine());
+        Console.Write("Enter coordinate y: ");
+        center.Y = double.Parse(Console.ReadLine());
+    }
+
+    public void Output()// Функція виведення даних
+    {
+        Console.WriteLine($"Radius: {Radius}");
+        Console.WriteLine($"Center of a circle: ({center.X}, {center.Y})");
+    }
+
+    public double Area()// Визначення площі
+    {
+        return Math.PI * Radius * Radius;
+    }
+
+    public bool IsPointInsideCircle(Info point)// Чи належить точка кругу
+    {
+        double range = Math.Sqrt(Math.Pow(point.X - center.X, 2) + Math.Pow(point.Y - center.Y, 2));
+        return range <= Radius;
+    }
+
+    public static TCircle operator +(TCircle first_circle, TCircle second_circle)// Перевантаження +
+    {
+        double new_radius = first_circle.Radius + second_circle.Radius;
+        return new TCircle(new_radius, first_circle.center);
+    }
+
+    public static TCircle operator -(TCircle first_circle, TCircle second_circle)// Перевантаження -
+    {
+        double new_radius = Math.Max(0, first_circle.Radius - second_circle.Radius);
+        return new TCircle(new_radius, first_circle.center);
+    }
+
+    public static TCircle operator *(TCircle circle, double argument)// Перевантаження *
+    {
+        double new_radius = circle.Radius * argument;
+        return new TCircle(new_radius, circle.center);
+    }
+}
+
+class TBall : TCircle// успадкування класа TCircle класом TBall
+{
+    public TBall() : base(){}
+
+    public TBall(double radius, Info center) : base(radius, center){}
+
+    public TBall(TBall other) : base(other){}
+    
+
+    // Метод для знаходження об'єму кулі
+    public double CalculateVolume()
+    {
+        return (4.0 / 3.0) * Math.PI * Math.Pow(Radius, 3);
+    }
+
+    // Перевизначення методу виведення даних
+    public new void Output()
+    {
+        base.Output();
+        Console.WriteLine($"Volume of circle: {CalculateVolume()}");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        TCircle first_circle = new TCircle(10.0, new Info { X = 5.0, Y = 7.5 });
+        TCircle second_circle = new TCircle();
+        second_circle.Input();
+
+        TCircle third_circle = first_circle + second_circle;
+        TCircle fourt_circle = first_circle - second_circle;
+        TCircle fifth_circle = first_circle * 2.0;
+
+        Console.WriteLine("First circle:");
+        first_circle.Output();
+
+        Console.WriteLine("Area of first circle: " + first_circle.Area());
+        Console.WriteLine();
+
+        Console.WriteLine("Second circle: ");
+        second_circle.Output();
+
+        Console.WriteLine("Area of second circle: " + second_circle.Area());
+        Console.WriteLine();
+
+        Console.WriteLine("Third circle: ");
+        third_circle.Output();
+
+        Console.WriteLine("Area of third circle: " + third_circle.Area());
+        Console.WriteLine();
+
+        Console.WriteLine("Fourth cicrle: ");
+        fourt_circle.Output();
+
+        Console.WriteLine("Area of fouth circle: " + fourt_circle.Area());
+        Console.WriteLine();
+
+        Console.WriteLine("Fifth circle: ");
+        fifth_circle.Output();
+
+        Console.WriteLine("Area of fifth circle: " + fifth_circle.Area());
+        Console.WriteLine();
+
+        TBall ball = new TBall(3.0, new Info { X = 1.0, Y = 2.0 });
+        Console.WriteLine("Ball:");
+        ball.Output();
+
+        Console.ReadLine();
+    }
+}
