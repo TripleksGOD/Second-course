@@ -1,0 +1,124 @@
+using System;
+
+interface Number // Інтерфейс
+{
+    double GetValue();
+}
+
+class Rational : Number // Клас для раціональних чисел
+{
+    private double num1;
+    private double num2;
+
+    public Rational(double num, double denum)
+    {
+        num1 = num;
+        num2 = denum;
+    }
+
+    public double GetValue()
+    {
+        return num1 / num2;
+    }
+}
+
+class Roman : Number // Клас для римських чисел
+{
+    private string roman;
+
+    public Roman(string roman1)
+    {
+        roman = roman1;
+    }
+
+    public double GetValue()
+    {
+
+        double result = 0.0;
+        foreach (char c in roman)
+        {
+            switch (c)
+            {
+                case 'I':
+                    result += 1;
+                    break;
+                case 'V':
+                    result += 5;
+                    break;
+                case 'X':
+                    result += 10;
+                    break;
+                case 'L':
+                    result += 50;
+                    break;
+                case 'C':
+                    result += 100;
+                    break;
+                case 'D':
+                    result += 500;
+                    break;
+                case 'M':
+                    result += 1000;
+                    break;
+                default:
+                    Console.WriteLine("Unknown symbol: " + c);
+                    return 0.0;
+            }
+        }
+        return result;
+    }
+}
+
+class Calculate // Обчислення суми і різниці чисел
+{
+    public double Sum(Number num1, Number num2)
+    {
+        return num1.GetValue() + num2.GetValue();
+    }
+
+    public double Subtraction(Number num1, Number num2)
+    {
+        return num1.GetValue() - num2.GetValue();
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Введення раціональних чисел з клавіатури
+        Console.Write("Enter the numerator for the 1 rational number: ");
+        double rationalNum1 = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter the denominator for the 1 rational number: ");
+        double rationalDenum1 = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter the numerator for the 2 rational number: ");
+        double rationalNum2 = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter the denominator for the 2 rational number: ");
+        double rationalDenum2 = double.Parse(Console.ReadLine());
+
+        Rational rational1 = new Rational(rationalNum1, rationalDenum1);
+        Rational rational2 = new Rational(rationalNum2, rationalDenum2);
+
+        // Введення римських чисел з клавіатури
+        Console.Write("Enter the first Roman number: ");
+        string roman1Input = Console.ReadLine();
+
+        Console.Write("Enter the second Roman number: ");
+        string roman2Input = Console.ReadLine();
+
+        Roman roman1 = new Roman(roman1Input);
+        Roman roman2 = new Roman(roman2Input);
+
+        // Використання калькулятора для обчислення суми і різниці
+        Calculate calc = new Calculate();
+
+        Console.WriteLine("Sum of rational numbers: " + calc.Sum(rational1, rational2));
+        Console.WriteLine("Subtract of rational numbers: " + calc.Subtraction(rational1, rational2));
+
+        Console.WriteLine("Sum of Roman numbers: " + calc.Sum(roman1, roman2));
+        Console.WriteLine("Subtract of Roman numbers: " + calc.Subtraction(roman1, roman2));
+    }
+}
