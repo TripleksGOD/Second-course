@@ -1,0 +1,120 @@
+using System;
+
+public abstract class TEquation // ствоерння базового класу
+{
+    public abstract double[] Root(); // ствоерння методів
+    public abstract bool IsRoot(double value);
+    public abstract double Sum();
+}
+
+public class LinearEquation : TEquation // ствоерння нащадка
+{
+    private double a, b;
+
+    public LinearEquation(double a, double b) // створення конструктора
+    {
+        this.a = a;
+        this.b = b;
+    }
+
+    public override double[] Root() // знаходження коренів рівняння
+    {
+        if (a == 0)
+        {
+            return new double[0]; // повернення пустого масива, якщо рівняння не лінійне
+        }
+
+        return new double[] { -b / a }; // знаходження кореня
+    }
+
+    public override bool IsRoot(double value) // перевірка чи є коренем рівняння
+    {
+        return a * value + b == 0;
+    }
+
+    public override double Sum() // знаходження сумми коренів
+    {
+        return a == 0 ? 0 : -b / a;
+    }
+}
+
+public class QuadraticEquation : TEquation // ствоерння нащадка
+{
+    private double a, b, c;
+
+    public QuadraticEquation(double a, double b, double c) // створення конструкторв
+    {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+    public override double[] Root() // знаходження коренів рівняння
+    {
+        double d = b * b - 4 * a * c;
+
+        if (d < 0) // перевірка коренів
+        {
+            return new double[0]; // повернення пустого масиву, якщо немає реальних коренів
+        }
+
+        if (d == 0) // знаходження кореня
+        {
+            return new double[] { -b / (2 * a) }; // 1 корень
+        }
+
+        return new double[] { (-b + Math.Sqrt(d)) / (2 * a), (-b - Math.Sqrt(d)) / (2 * a) }; // 2 корень
+    }
+
+    public override bool IsRoot(double value) // перевірка чи є коренем рівняння
+    {
+        return a * value * value + b * value + c == 0;
+    }
+
+    public override double Sum() // знаходження сумми коренів
+    {
+        return a == 0 ? 0 : -b / a;
+    }
+}
+
+class Program
+{
+    static void Main()
+
+    {
+        int n = 3;
+        int m = 3;
+
+        Random random = new Random(); // випадкого згенеровані дані 
+        for (int i = 0; i < n; i++)
+        {
+            double a = random.Next(-20, 20);
+            double b = random.Next(-20, 20);
+
+            LinearEquation LE = new LinearEquation(a, b); // створення об'єкту
+            double[] roots = LE.Root();
+            
+            // розрахунки лінійного рівняння
+            Console.WriteLine($"Linear Equation {i + 1}: {a}x + {b}");
+            Console.WriteLine($"Roots: {string.Join(", ", roots)}");
+            Console.WriteLine($"Sum of Roots: {LE.Sum()}");
+            Console.WriteLine();
+        }
+
+        for (int i = 0; i < m; i++)
+        {
+            double a = random.Next(-20, 20);
+            double b = random.Next(-20, 10);
+            double c = random.Next(-20, 10);
+
+            QuadraticEquation QE = new QuadraticEquation(a, b, c);// створення об'єкту
+            double[] roots = QE.Root();
+
+            // розрахунки квадратичного рівняння
+            Console.WriteLine($"Quadratic Equation {i + 1}: {a}x^2 + {b}x + {c}");
+            Console.WriteLine($"Roots: {string.Join(", ", roots)}");
+            Console.WriteLine($"Sum of Roots: {QE.Sum()}");
+            Console.WriteLine();
+        }
+    }
+}
